@@ -8,8 +8,7 @@
 # on your EBS volume, use dpkg -i to install it.                                   #
 #                                                                                  #
 # The CouchDB tools are symlinked as /usr/local/bin/couchdb-dump and couchdb-load  #
-# on the system. Due to my lack of time, I have python26 hardcoded into it, but    #
-# I promise I'll improve this later.                                               #
+# on the system.                                                                   #
 #                                                                                  #
 # This has been tested on Ubunut 9.04, and I realize it could be improved. Please  #
 # contribute. :-)                                                                  #
@@ -31,8 +30,11 @@ export PKG_NAME=apache-couchdb
 export COUCHDB_FILE="${PKG_NAME}-${COUCHDB_VERSION}"
 export COUCHDB_DOWNLOAD="${APACHE_MIRROR}/${COUCHDB_VERSION}/${COUCHDB_FILE}.tar.gz"
 
+PYTHON_VERSION=$(python -V 2>&1 |sed s,Python,,)
+PYTHON_VERSION=${PYTHON_VERSION/ /}
+export PYTHON_VERSION=${PYTHON_VERSION%.*}
 
-export COUCHDB_PYTHON_INSTALL=/usr/local/lib/python2.6/dist-packages/couchdb/tools
+export COUCHDB_PYTHON_INSTALL="/usr/local/lib/python${PYTHON_VERSION}/dist-packages/couchdb/tools"
 export APT_OPTS=" --yes --quiet"
 
 function basics {
