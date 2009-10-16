@@ -102,6 +102,6 @@ function couchdb_tools {
 }
 
 basics
-#couchdb_deps
-#couchdb_install
-#couchdb_tools
+couchdb_deps
+couchdb_install
+couchdb_tools
