@@ -24,20 +24,30 @@
 ####################################################################################
 
 export APACHE_MIRROR=http://apache.easy-webs.de/couchdb
-export PKG_NAME=apache-couchdb
 export COUCHDB_VERSION=0.9.1
+export EBS_VOL=/couchdb
+
+export PKG_NAME=apache-couchdb
 export COUCHDB_FILE="${PKG_NAME}-${COUCHDB_VERSION}"
 export COUCHDB_DOWNLOAD="${APACHE_MIRROR}/${COUCHDB_VERSION}/${COUCHDB_FILE}.tar.gz"
-export EBS_VOL=/couchdb
 
 
 export COUCHDB_PYTHON_INSTALL=/usr/local/lib/python2.6/dist-packages/couchdb/tools
 export APT_OPTS=" --yes --quiet"
 
-echo "Creating build directory...\n"
+function basics {
 
-mkdir -p ~/build
-cd ~/build
+    echo "Fixing the basics..."
+
+    apt-get update $APT_OPTS
+    apt-get clean $APT_OPTS
+    apt-get upgrade $APT_OPTS
+
+    echo "Creating build directory..."
+
+    mkdir -p ~/build
+    cd ~/build
+}
 
 function couchdb_deps {
     apt-get install $APT_OPTS checkinstall
@@ -47,12 +57,12 @@ function couchdb_deps {
 }
 
 function couchdb_install {
-    echo "Downloading CouchDB...\n"
+    echo "Downloading CouchDB..."
 
     wget $COUCHDB_DOWNLOAD
     tar zxvf ${COUCHDB_FILE}.tar.gz
 
-    echo "Building CouchDB...\n"
+    echo "Building CouchDB..."
 
     cd ${COUCHDB_FILE}/
     ./configure --prefix=$EBS_VOL/couchdb
@@ -61,17 +71,17 @@ function couchdb_install {
     --pkgname=$PKG_NAME --pkgversion=$COUCHDB_VERSION \
     --maintainer=till@imagineeasy.com --pakdir=$EBS_VOL --pkglicense=Apache 
 
-    echo "Package created in: ${EBS_VOL}\n"
-    echo "Please run dpkg -i and install it.\n\n\n"
+    echo "Package created in: ${EBS_VOL}"
+    echo "Please run dpkg -i and install it."
 }
 
 function couchdb_tools {
-    echo "Installing dependencies for CouchDB tools...\n"
+    echo "Installing dependencies for CouchDB tools..."
 
     apt-get install $APT_OPTS python-httplib2
     apt-get install $APT_OPTS python-simplejson
 
-    echo "Building CouchDB tools... \n"
+    echo "Building CouchDB tools... "
 
     mkdir -p ~/build
     cd ~/build/
@@ -80,7 +90,7 @@ function couchdb_tools {
     cd couchdb-python-read-only-${COUCHDB_VERSION}
     python setup.py install
 
-    echo "Symlinking tools... \n"
+    echo "Symlinking tools... "
 
     chmod +x ${COUCHDB_PYTHON_INSTALL}/dump.py
     chmod +x ${COUCHDB_PYTHON_INSTALL}/load.py
@@ -89,6 +99,7 @@ function couchdb_tools {
     ln -s ${COUCHDB_PYTHON_INSTALL}/load.py /usr/local/bin/couchdb-load
 }
 
-couchdb_deps
-couchdb_install
-couchdb_tools
+basics
+#couchdb_deps
+#couchdb_install
+#couchdb_tools
