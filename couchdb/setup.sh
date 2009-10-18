@@ -25,6 +25,7 @@
 export APACHE_MIRROR=http://apache.easy-webs.de/couchdb
 export COUCHDB_VERSION=0.10.0
 export EBS_VOL=/couchdb
+export INSTALL_YES_NO=yes
 
 if [ ! -d $EBS_VOL ]; then
     echo "Error: $EBS_VOL doesn't exist."
@@ -41,14 +42,15 @@ export PYTHON_VERSION=${PYTHON_VERSION%.*}
 
 export COUCHDB_PYTHON_INSTALL="/usr/local/lib/python${PYTHON_VERSION}/dist-packages/couchdb/tools"
 export APT_OPTS=" --yes --quiet"
+export APT_POST=" > /dev/null 2>&1"
 
 function basics {
 
     echo "Fixing the basics..."
 
-    apt-get update $APT_OPTS
-    apt-get clean $APT_OPTS
-    apt-get upgrade $APT_OPTS
+    apt-get update $APT_OPTS $APT_POST
+    apt-get clean $APT_OPTS $APT_POST
+    apt-get upgrade $APT_OPTS $APT_POST
 
     echo "Creating build directory..."
 
@@ -57,10 +59,10 @@ function basics {
 }
 
 function couchdb_deps {
-    apt-get install $APT_OPTS checkinstall
-    apt-get install $APT_OPTS subversion
-    apt-get install $APT_OPTS automake autoconf libtool help2man
-    apt-get install $APT_OPTS build-essential erlang libicu-dev libmozjs-dev libcurl4-openssl-dev
+    apt-get install $APT_OPTS checkinstall $APT_POST
+    apt-get install $APT_OPTS subversion $APT_POST
+    apt-get install $APT_OPTS automake autoconf libtool help2man $APT_POST
+    apt-get install $APT_OPTS build-essential erlang libicu-dev libmozjs-dev libcurl4-openssl-dev $APT_POST
 }
 
 function couchdb_install {
@@ -74,7 +76,7 @@ function couchdb_install {
     cd ${COUCHDB_FILE}/
     ./configure --prefix=$EBS_VOL/couchdb
     make
-    checkinstall -y -D --install=no \
+    checkinstall -y -D --install=${INSTALL_YES_NO} \
     --pkgname=$PKG_NAME --pkgversion=$COUCHDB_VERSION \
     --maintainer=till@imagineeasy.com --pakdir=$EBS_VOL --pkglicense=Apache 
 
@@ -85,8 +87,8 @@ function couchdb_install {
 function couchdb_tools {
     echo "Installing dependencies for CouchDB tools..."
 
-    apt-get install $APT_OPTS python-httplib2
-    apt-get install $APT_OPTS python-simplejson
+    apt-get install $APT_OPTS python-httplib2 $APT_POST
+    apt-get install $APT_OPTS python-simplejson $APT_POST
 
     echo "Building CouchDB tools... "
 
@@ -102,8 +104,12 @@ function couchdb_tools {
     chmod +x ${COUCHDB_PYTHON_INSTALL}/dump.py
     chmod +x ${COUCHDB_PYTHON_INSTALL}/load.py
 
-    ln -s ${COUCHDB_PYTHON_INSTALL}/dump.py /usr/local/bin/couchdb-dump
-    ln -s ${COUCHDB_PYTHON_INSTALL}/load.py /usr/local/bin/couchdb-load
+    # create /usr/local/bin, because it might not be there :O
+    BIN_LOCAL=/usr/local/bin
+    mkdir -p $BIN_LOCAL
+
+    ln -s ${COUCHDB_PYTHON_INSTALL}/dump.py ${BIN_LOCAL}/couchdb-dump
+    ln -s ${COUCHDB_PYTHON_INSTALL}/load.py ${BIN_LOCAL}/couchdb-load
 }
 
 basics
