@@ -81,7 +81,14 @@ function couchdb_install {
     --maintainer=till@imagineeasy.com --pakdir=$EBS_VOL --pkglicense=Apache 
 
     echo "Package created in: ${EBS_VOL}"
-    echo "Please run dpkg -i and install it."
+
+    if [ $INSTALL_YES_NO -eq "no" ] then
+        echo "Please run dpkg -i and install it."
+    else
+        ln -s ${EBS_VOL}/couchdb/etc/init.d/couchdb /etc/init.d/couchdb
+        ln -s ${EBS_VOL}/couchdb/etc/logrotate.d/couchdb /etc/logrotate.d/couchdb
+        update-rc.d couchdb defaults
+    fi
 }
 
 function couchdb_tools {
