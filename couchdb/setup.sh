@@ -23,8 +23,13 @@
 ####################################################################################
 
 export APACHE_MIRROR=http://apache.easy-webs.de/couchdb
-export COUCHDB_VERSION=0.9.1
+export COUCHDB_VERSION=0.10.0
 export EBS_VOL=/couchdb
+
+if [ ! -d $EBS_VOL ]; then
+    echo "Error: $EBS_VOL doesn't exist."
+    exit 1
+fi
 
 export PKG_NAME=apache-couchdb
 export COUCHDB_FILE="${PKG_NAME}-${COUCHDB_VERSION}"
