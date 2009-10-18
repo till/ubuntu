@@ -24,6 +24,7 @@
 
 export APACHE_MIRROR=http://apache.easy-webs.de/couchdb
 export COUCHDB_VERSION=0.10.0
+export COUCHDB_USER=root
 export EBS_VOL=/couchdb
 export INSTALL_YES_NO=yes
 
@@ -81,6 +82,10 @@ function couchdb_install {
     --maintainer=till@imagineeasy.com --pakdir=$EBS_VOL --pkglicense=Apache 
 
     echo "Package created in: ${EBS_VOL}"
+
+    #replace $COUCHDB_USER in ${EBS_VOL}/couchdb/etc/defaults/couchdb
+    #echo "bind_address = 0.0.0.0" >> ${EBS_VOL}/couchdb/etc/couchdb/local.ini
+    #echo "port = 80" >> ${EBS_VOL}/couchdb/etc/couchdb/local.ini
 
     if [ $INSTALL_YES_NO -eq "no" ] then
         echo "Please run dpkg -i and install it."
