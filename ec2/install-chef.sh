@@ -16,10 +16,12 @@
 ####################################################################################
 
 RELEASE_NAME=jaunty
+OPSCODE_LIST=/etc/apt/sources.list.d/opscode.list
 
-echo "deb http://apt.opscode.com/ $RELEASE_NAME universe" >> /etc/apt/sources.list.d/opscode.list
-
-curl -s http://apt.opscode.com/packages@opscode.com.gpg.key | apt-key add -
+if [ ! -f $OBSCODE_LIST ]; then
+    echo "deb http://apt.opscode.com/ ${RELEASE_NAME} universe" >> $OPSCODE_LIST
+    curl -s http://apt.opscode.com/packages@opscode.com.gpg.key | apt-key add -
+fi
 
 apt-get -y update
 apt-get -y install rubygems1.8
