@@ -79,7 +79,7 @@ function couchdb_install {
     make
     checkinstall -y -D --install=${INSTALL_YES_NO} \
     --pkgname=$PKG_NAME --pkgversion=$COUCHDB_VERSION \
-    --maintainer=till@imagineeasy.com --pakdir=$EBS_VOL --pkglicense=Apache 
+    --maintainer=till@php.net --pakdir=$EBS_VOL --pkglicense=Apache 
 
     echo "Package created in: ${EBS_VOL}"
 
