@@ -51,7 +51,7 @@ sed -i "s,memory_limit = 16M,memory_limit = 256M,g" $php_ini
 sed -i "s,max_execution_time = 30,max_execution_time = 60,g" $php_ini
 
 # fix ubuntu fuck ups
-sed -u "s,magic_quotes_gpc = On,magic_quotes_gpc = Off,g" $php_ini
+sed -i "s,magic_quotes_gpc = On,magic_quotes_gpc = Off,g" $php_ini
 
 # update PEAR and install packages
 pear channel-update pear.php.net
