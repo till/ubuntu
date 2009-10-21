@@ -120,8 +120,8 @@ function couchdb_tools {
     BIN_LOCAL=/usr/local/bin
     mkdir -p $BIN_LOCAL
 
-    ln -s ${COUCHDB_PYTHON_INSTALL}/dump.py ${BIN_LOCAL}/couchdb-dump
-    ln -s ${COUCHDB_PYTHON_INSTALL}/load.py ${BIN_LOCAL}/couchdb-load
+    ln -sf ${COUCHDB_PYTHON_INSTALL}/dump.py ${BIN_LOCAL}/couchdb-dump
+    ln -sf ${COUCHDB_PYTHON_INSTALL}/load.py ${BIN_LOCAL}/couchdb-load
 }
 
 basics
