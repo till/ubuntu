@@ -87,7 +87,7 @@ function couchdb_install {
     #echo "bind_address = 0.0.0.0" >> ${EBS_VOL}/couchdb/etc/couchdb/local.ini
     #echo "port = 80" >> ${EBS_VOL}/couchdb/etc/couchdb/local.ini
 
-    if [ $INSTALL_YES_NO -eq "no" ] then
+    if [ $INSTALL_YES_NO -eq "no" ]; then
         echo "Please run dpkg -i and install it."
     else
         ln -s ${EBS_VOL}/couchdb/etc/init.d/couchdb /etc/init.d/couchdb
