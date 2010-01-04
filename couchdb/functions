@@ -54,7 +54,7 @@ function couchdb_deps {
 function couchdb_download {
     echo "Downloading CouchDB..."
     cd $EBS_VOL && wget $COUCHDB_DOWNLOAD
-    tar zxvf ${COUCHDB_FILE}.tar.gz
+    tar zxf ${COUCHDB_FILE}.tar.gz
 }
 
 function couchdb_tools {
