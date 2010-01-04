@@ -64,6 +64,12 @@ function lounge_install_pythonlounge {
 }
 
 function lounge_install_smartproxy {
+
+    apt-get install $APT_OPTS python-twisted
+    apt-get install $APT_OPTS python-cjson
+    apt-get install $APT_OPTS python-simplejson
+    apt-get install $APT_OPTS python-pyicu
+
     cd ${EBS_VOL}/couchdb-lounge/smartproxy
     make
     checkinstall -y -D  --install=${INSTALL_YES_NO} \
