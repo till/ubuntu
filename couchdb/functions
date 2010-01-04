@@ -51,6 +51,12 @@ function couchdb_deps {
     apt-get install $APT_OPTS build-essential erlang libicu-dev libmozjs-dev libcurl4-openssl-dev $APT_POST
 }
 
+function couchdb_download {
+    echo "Downloading CouchDB..."
+    wget $COUCHDB_DOWNLOAD
+    tar zxvf ${COUCHDB_FILE}.tar.gz
+}
+
 function couchdb_tools {
     echo "Installing dependencies for CouchDB tools..."
 

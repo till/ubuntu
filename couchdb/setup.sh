@@ -41,11 +41,6 @@ export COUCHDB_FILE="${PKG_NAME}-${COUCHDB_VERSION}"
 export COUCHDB_DOWNLOAD="${APACHE_MIRROR}/${COUCHDB_VERSION}/${COUCHDB_FILE}.tar.gz"
 
 function couchdb_install {
-    echo "Downloading CouchDB..."
-
-    wget $COUCHDB_DOWNLOAD
-    tar zxvf ${COUCHDB_FILE}.tar.gz
-
     echo "Building CouchDB..."
 
     cd ${COUCHDB_FILE}/
@@ -72,5 +67,6 @@ function couchdb_install {
 
 basics
 couchdb_deps
+couchdb_download
 couchdb_install
 couchdb_tools
