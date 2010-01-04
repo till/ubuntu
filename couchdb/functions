@@ -27,8 +27,8 @@ PYTHON_VERSION=${PYTHON_VERSION/ /}
 export PYTHON_VERSION=${PYTHON_VERSION%.*}
 
 export COUCHDB_PYTHON_INSTALL="/usr/local/lib/python${PYTHON_VERSION}/dist-packages/couchdb/tools"
-export APT_OPTS=" --yes --quiet"
-export APT_POST=" > /dev/null 2>&1"
+export APT_OPTS=" --yes -qq"
+export APT_POST=""
 
 function basics {
 
@@ -53,7 +53,7 @@ function couchdb_deps {
 
 function couchdb_download {
     echo "Downloading CouchDB..."
-    wget $COUCHDB_DOWNLOAD
+    cd $EBS_VOL && wget $COUCHDB_DOWNLOAD
     tar zxvf ${COUCHDB_FILE}.tar.gz
 }
 
