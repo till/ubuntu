@@ -42,7 +42,10 @@ export COUCHDB_DOWNLOAD="${APACHE_MIRROR}/${COUCHDB_VERSION}/${COUCHDB_FILE}.tar
 
 export LOUNGE_FILES="${EBS_VOL}/couchdb-lounge"
 
+# Download couchdb-lounge from github
+# Make sure git is installed
 function lounge_download {
+    apt-get install $APT_OPTS git-core
     cd $EBS_VOL && git clone git://github.com/tilgovi/couchdb-lounge.git
 }
 
