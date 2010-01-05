@@ -91,7 +91,7 @@ function lounge_install_smartproxy {
 
     local deps="python-twisted, python-cjson, python-simplejson, python-pyicu"
 
-    apt-get install $APT_OPTS ${deps/,/}
+    apt-get install $APT_OPTS ${deps//,/}
 
     cd ${EBS_VOL}/couchdb-lounge/smartproxy
     make
@@ -111,7 +111,8 @@ function couchdb_install {
     checkinstall -y -D --install=${INSTALL_YES_NO} \
     --showinstall=no \
     --pkgname=$PKG_NAME --pkgversion=$COUCHDB_VERSION \
-    --maintainer=till@php.net --pakdir=$EBS_VOL --pkglicense=Apache 
+    --maintainer=till@php.net --pakdir=$EBS_VOL --pkglicense=Apache \
+    --requires="${COUCHDB_DEPS}"
 
     echo "Package created in: ${EBS_VOL}"
 

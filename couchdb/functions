@@ -26,6 +26,8 @@ PYTHON_VERSION=$(python -V 2>&1 |sed s,Python,,)
 PYTHON_VERSION=${PYTHON_VERSION/ /}
 export PYTHON_VERSION=${PYTHON_VERSION%.*}
 
+COUCHDB_DEPS="automake, autoconf, libtool, help2man, build-essential, erlang, libicu-dev, libmozjs-dev, libcurl4-openssl-dev"
+
 export COUCHDB_PYTHON_INSTALL="/usr/local/lib/python${PYTHON_VERSION}/dist-packages/couchdb/tools"
 export APT_OPTS=" --yes -qq"
 export APT_POST=""
@@ -47,8 +49,8 @@ function basics {
 function couchdb_deps {
     apt-get install $APT_OPTS checkinstall $APT_POST
     apt-get install $APT_OPTS subversion $APT_POST
-    apt-get install $APT_OPTS automake autoconf libtool help2man $APT_POST
-    apt-get install $APT_OPTS build-essential erlang libicu-dev libmozjs-dev libcurl4-openssl-dev $APT_POST
+
+    apt-get install $APT_OPTS ${COUCHDB_DEPS//,/} $APT_POST
 }
 
 function couchdb_download {
