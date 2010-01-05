@@ -54,16 +54,17 @@ function lounge_merge_patch {
 # We install 0.7, because > 0.7 is f'd up
 function lounge_install_dumbproxy_dep {
 
-    local VER=0.7
+    local version=0.7
 
     cd $EBS_VOL
-    wget http://oss.metaparadigm.com/json-c/json-c-${VER}.tar.gz
-    tar -xf json-c-${VER}.tar.gz
-    cd json-c-${VER}/
+    wget http://oss.metaparadigm.com/json-c/json-c-${version}.tar.gz
+    tar -xf json-c-${version}.tar.gz
+    cd json-c-${version}/
     ./configure
     make
     checkinstall -y -D  --install=${INSTALL_YES_NO} \
-    --pkgname=json-c --pkgversion=${VER} \
+    --showinstall=no \
+    --pkgname=json-c --pkgversion=${version} \
     --maintainer=till@php.net --pakdir=$EBS_VOL --pkglicense=free
 }
 
@@ -75,8 +76,10 @@ function lounge_install_dumbproxy {
     cd ${EBS_VOL}/couchdb-lounge/dumbproxy
     ./configure && make 
     checkinstall -y -D  --install=${INSTALL_YES_NO} \
+    --showinstall=no \
     --pkgname=couchdb-lounge-dumbproxy --pkgversion=${COUCHDB_VERSION} \
-    --maintainer=till@php.net --pakdir=$EBS_VOL --pkglicense=Meebo
+    --maintainer=till@php.net --pakdir=$EBS_VOL --pkglicense=Meebo \
+    --requires='json-c'
 }
 
 function lounge_install_pythonlounge {
@@ -86,15 +89,16 @@ function lounge_install_pythonlounge {
 
 function lounge_install_smartproxy {
 
-    local deps="python-twisted python-cjson python-simplejson python-pyicu"
+    local deps="python-twisted, python-cjson, python-simplejson, python-pyicu"
 
-    apt-get install $APT_OPTS $deps
+    apt-get install $APT_OPTS ${deps/,/}
 
     cd ${EBS_VOL}/couchdb-lounge/smartproxy
     make
     checkinstall -y -D  --install=${INSTALL_YES_NO} \
+    --showinstall=no \
     --pkgname=couchdb-lounge-smartproxy --pkgversion=${COUCHDB_VERSION} \
-    --maintainer=till@php.net --pakdir=$EBS_VOL --pkglicense=Meebo
+    --maintainer=till@php.net --pakdir=$EBS_VOL --pkglicense=Meebo \
     --requires="${deps}"
 }
 
@@ -105,6 +109,7 @@ function couchdb_install {
     ./configure --prefix=$EBS_VOL/couchdb
     make
     checkinstall -y -D --install=${INSTALL_YES_NO} \
+    --showinstall=no \
     --pkgname=$PKG_NAME --pkgversion=$COUCHDB_VERSION \
     --maintainer=till@php.net --pakdir=$EBS_VOL --pkglicense=Apache 
 
@@ -126,5 +131,3 @@ lounge_install_dumbproxy
 lounge_install_pythonlounge
 lounge_install_smartproxy
 #couchdb_tools
-
-echo "TEST: $VER"
