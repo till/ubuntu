@@ -55,3 +55,8 @@
 01:46 < Monty> bending notes, maybe more general principle that Dickinson wouldn't be okay, what number
 01:47 < tilgovi> and you can load balance between multiple smartproxy instances so that both machines are doing re-reductions by listing them both in /etc/lounge/nginx/nginx.conf
 01:47 < tilgovi> that should be enough for you to play for a while
+
+--
+
+18:31 <tilgovi> be sure you set permissions for the couchdb user to write to /var/log/lounge/replicator
+18:31 <tilgovi> or the replication_notifier will crash
