@@ -50,11 +50,32 @@ function lounge_merge_patch {
     cd ${EBS_VOL}/${COUCHDB_FILE}/src && patch -p1 < ${EBS_VOL}/couchdb-lounge/couchdb/designonly_replication-${COUCHDB_VERSION}.patch
 }
 
+# Install the JSON-C lib for dumbproxy
+# We install 0.7, because > 0.7 is f'd up
+function lounge_install_dumbproxy_dep {
+
+    local VER=0.7
+
+    cd $EBS_VOL
+    wget http://oss.metaparadigm.com/json-c/json-c-${VER}.tar.gz
+    tar -xf json-c-${VER}.tar.gz
+    cd json-c-${VER}/
+    ./configure
+    make
+    checkinstall -y -D  --install=${INSTALL_YES_NO} \
+    --pkgname=json-c --pkgversion=${VER} \
+    --maintainer=till@php.net --pakdir=$EBS_VOL --pkglicense=free
+}
+
+# Install the dumbproxy module
 function lounge_install_dumbproxy {
+
+    lounge_install_dumbproxy_dep
+
     cd ${EBS_VOL}/couchdb-lounge/dumbproxy
     ./configure && make 
     checkinstall -y -D  --install=${INSTALL_YES_NO} \
-    --pkgname=couchdb-lounge-dumbproxy --pkgversion=$COUCHDB_VERSION \
+    --pkgname=couchdb-lounge-dumbproxy --pkgversion=${COUCHDB_VERSION} \
     --maintainer=till@php.net --pakdir=$EBS_VOL --pkglicense=Meebo
 }
 
@@ -65,22 +86,22 @@ function lounge_install_pythonlounge {
 
 function lounge_install_smartproxy {
 
-    apt-get install $APT_OPTS python-twisted
-    apt-get install $APT_OPTS python-cjson
-    apt-get install $APT_OPTS python-simplejson
-    apt-get install $APT_OPTS python-pyicu
+    local deps="python-twisted python-cjson python-simplejson python-pyicu"
+
+    apt-get install $APT_OPTS $deps
 
     cd ${EBS_VOL}/couchdb-lounge/smartproxy
     make
     checkinstall -y -D  --install=${INSTALL_YES_NO} \
-    --pkgname=couchdb-lounge-smartproxy --pkgversion=$COUCHDB_VERSION \
+    --pkgname=couchdb-lounge-smartproxy --pkgversion=${COUCHDB_VERSION} \
     --maintainer=till@php.net --pakdir=$EBS_VOL --pkglicense=Meebo
+    --requires="${deps}"
 }
 
 function couchdb_install {
     echo "Building CouchDB..."
 
-    cd ${COUCHDB_FILE}/
+    cd ${EBS_VOL}/${COUCHDB_FILE}/
     ./configure --prefix=$EBS_VOL/couchdb
     make
     checkinstall -y -D --install=${INSTALL_YES_NO} \
@@ -93,13 +114,6 @@ function couchdb_install {
     #echo "bind_address = 0.0.0.0" >> ${EBS_VOL}/couchdb/etc/couchdb/local.ini
     #echo "port = 80" >> ${EBS_VOL}/couchdb/etc/couchdb/local.ini
 
-    if [ $INSTALL_YES_NO -eq "no" ]; then
-        echo "Please run dpkg -i and install it."
-    else
-        ln -s ${EBS_VOL}/couchdb/etc/init.d/couchdb /etc/init.d/couchdb
-        ln -s ${EBS_VOL}/couchdb/etc/logrotate.d/couchdb /etc/logrotate.d/couchdb
-        update-rc.d couchdb defaults
-    fi
 }
 
 basics
@@ -112,3 +126,5 @@ lounge_install_dumbproxy
 lounge_install_pythonlounge
 lounge_install_smartproxy
 #couchdb_tools
+
+echo "TEST: $VER"
