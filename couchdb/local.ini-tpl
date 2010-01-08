@@ -1,0 +1,19 @@
+[couchdb]
+
+[httpd]
+port = PORTNUMBER
+bind_address = 0.0.0.0
+
+[log]
+level = error
+
+[couch_httpd_auth]
+secret = HTTPAUTHSECRET
+
+[native_query_servers]
+erlang = {couch_native_process, start_link, []}
+
+[update_notification]
+
+[admins]
+ADMINS
