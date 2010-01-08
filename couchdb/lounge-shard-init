@@ -1,0 +1,20 @@
+#!/bin/bash
+
+  -a FILE     add configuration FILE to chain
+  -A DIR      add configuration DIR to chain
+  -n          reset configuration file chain (including system default)
+  -c          print configuration file chain and exit
+  -i          use the interactive Erlang shell
+  -b          spawn as a background process
+  -p FILE     set the background PID FILE (overrides system default)
+  -r SECONDS  respawn background process after SECONDS (defaults to no respawn)
+  -o FILE     redirect background stdout to FILE (defaults to couchdb.stdout)
+  -e FILE     redirect background stderr to FILE (defaults to couchdb.stderr)
+  -s          display the status of the background process
+  -k          kill the background process, will respawn if needed
+  -d          shutdown the background process
+
+
+COUCHDB=/path/to/couchdb
+SHARDCONFIG=/path/to/lounge/etc/
+
