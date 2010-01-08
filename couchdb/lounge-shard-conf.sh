@@ -31,7 +31,7 @@ PORT=5984
 NUMSERVERS=$1
 
 function save_file {
-    `echo $2 >> ./$1`
+    `echo "$2" >> ./$1`
 }
 
 if [ -z $NUMSERVERS ]; then
