@@ -16,15 +16,19 @@
 ####################################################################################
 
 
-ADMINS="user = password
+ADMINS="user1 = password
 user2 = password";
 
 HTTPAUTHSECRET="this should be adjusted"
 
+# We'll start at this port
 PORT=5984
 
-#echo "$ADMINS";
-#exit;
+# this is the ebs volume we log to
+LOG_EBS=/logs
+
+# this is the ebs the databases will be on
+DB_EBS=/couchdb_ebs
 
 ## Don't edit below.
 
@@ -32,6 +36,11 @@ NUMSERVERS=$1
 
 function save_file {
     `echo "$2" >> ./$1`
+}
+
+function create {
+    mkdir $1;
+    touch $2;
 }
 
 if [ -z $NUMSERVERS ]; then
@@ -50,9 +59,14 @@ do
 
     local_config=${conf/ADMINS/$ADMINS}
     local_config=${local_config/HTTPAUTHSECRET/$HTTPAUTHSECRET}
-    local_config=${local_config/PORTNUMBER/$shard_port}
+    local_config=${local_config//PORTNUMBER/$shard_port}
+    local_config=${local_config//LOGEBS/$LOG_EBS}
+    local_config=${local_config//DBEBS/$DB_EBS}
 
     save_file "local-${shard_port}.ini" "$local_config"
+
+    #create "${DBS_EBS}/${shard_port}" "${LOG_EBS}/couch-${shard_port}.log"
 done
 
-# replace: PORTNUMBER, HTTPAUTHSECRET, ADMINS
+echo "Done creating ${NUMSERVERS} config files."
+exit 0;

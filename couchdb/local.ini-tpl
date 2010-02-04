@@ -1,10 +1,12 @@
 [couchdb]
+database_dir = DBEBS/PORTNUMBER
 
 [httpd]
 port = PORTNUMBER
 bind_address = 0.0.0.0
 
 [log]
+file = LOGEBS/couch-PORTNUMBER.log
 level = error
 
 [couch_httpd_auth]
