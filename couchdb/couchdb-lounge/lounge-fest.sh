@@ -29,7 +29,7 @@ export EBS_VOL=/couchdb
 export INSTALL_YES_NO=no
 
 # include shared functions
-source ./functions
+source ./../functions
 
 if [ ! -d $EBS_VOL ]; then
     echo "Error: $EBS_VOL doesn't exist."
