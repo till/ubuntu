@@ -1,16 +1,21 @@
+# What's this?
 
-# loung-fest.sh
+ * a bunch of scripts to get CouchDB-lounge setup
+ * a work in progress
+ * goal? - have deps, install them - be happy!
+
+## loung-fest.sh
 
  * installs all dependencies
  * installs CouchDB
  * installs CouchDB-lounge components
  * TODO: configuration/setup of all components
 
-# local.ini-tpl
+## local.ini-tpl
 
  * a template to create configs for the shards from
 
-# lounge-shard-conf.sh
+## lounge-shard-conf.sh
 
  * uses local.ini-tpl
  * configs are create in the same dir
@@ -23,7 +28,7 @@
   * CHROOT - optional, if you run this with a prefix (for testing)
 
 
-# lounge-shard-init
+## lounge-shard-init
 
  * a script to start the shards
  * TODO: work in progress
