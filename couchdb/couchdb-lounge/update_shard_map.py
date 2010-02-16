@@ -53,7 +53,7 @@ def main(nodefile, num_shards, redundancy):
     redundancy = int(redundancy)
     shards = range(num_shards)
     nodes = []
-    for node in file(nodefile).read().split():
+    for node in file(nodefile).readlines():
         item = node.split()
         if len(item) == 1:
             item.append(5984)
