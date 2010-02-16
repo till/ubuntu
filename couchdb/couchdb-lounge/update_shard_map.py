@@ -54,7 +54,7 @@ def main(nodefile, num_shards, redundancy):
         for node in file(nodefile).read().split():
                 item = node.split()
                 if len(item) == 1:
-                    item.append(DEFAULT_PORT)
+                    item.append(5984)
 
                 nodes.append(item)
 
