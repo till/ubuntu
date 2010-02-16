@@ -61,6 +61,8 @@ conf=`cat ./local.ini-tpl`
 
 #echo "$conf";
 
+nodelist=""
+
 for (( i=1; i<=$NUMSERVERS; i++ ))
 do
 
@@ -88,8 +90,20 @@ do
     init_cmd="${init_cmd} ${COUCHDB_USER}"
 
     echo "${init_cmd}"
+    echo ""
+
+
+    nodelist="${nodelist}localhost_${shard_port}"$'\n'
 
 done
 
-echo "Done creating ${NUMSERVERS} config files."
+save_file "nodelist" "${nodelist}"
+
+echo "Done!"
+echo ""
+
+echo "Created in `pwd`:"
+echo " * nodelist (for update_shard_map.py)"
+echo " * ${NUMSERVERS} local-*.ini's"
+echo ""
 exit 0;
