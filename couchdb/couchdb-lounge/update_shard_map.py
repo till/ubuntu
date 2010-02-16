@@ -50,9 +50,14 @@ def main(nodefile, num_shards, redundancy):
         num_shards = int(num_shards)
         redundancy = int(redundancy)
         shards = range(num_shards)
-        nodes = file(nodefile).read().split()
-        # add port to nodes
-        nodes = [(node, 5984) for node in nodes if len(node)>0]
+        nodes = []
+        for node in file(nodefile).read().split():
+                item = node.split()
+                if len(item) == 1:
+                    item.append(DEFAULT_PORT)
+
+                nodes.append(item)
+
         nodes.sort()
 
         assert redundancy < len(nodes), "You can't have n+%d redundancy with %d nodes." % (redundancy, len(nodes))
