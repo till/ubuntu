@@ -1,12 +1,14 @@
-#!/usr/bin/python
-
+#!/usr/bin/env python
 #
 # Credits:
 # http://code.google.com/p/couchdb-lounge/wiki/ShardsConfandYou
-#
 
-import simplejson
 import sys
+try:
+    import json
+except ImportError:
+    # python < 2.6 
+    import simplejson as json
 
 def next(i, lst):
     """Increment a list index with wraparound."""
@@ -80,7 +82,7 @@ def main(nodefile, num_shards, redundancy):
         node_i = next(node_i, nodes)
     
     validate(node_map, nodes)
-    print simplejson.dumps(dict(shard_map=node_map, nodes=nodes))
+    print json.dumps(dict(shard_map=node_map, nodes=nodes))
 
 if __name__=='__main__':
     if len(sys.argv)!=4:
