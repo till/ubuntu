@@ -69,6 +69,8 @@ function lounge_install_dumbproxy_dep {
     --showinstall=no \
     --pkgname=json-c --pkgversion=${version} \
     --maintainer=till@php.net --pakdir=$EBS_VOL --pkglicense=free
+
+    apt-get install libpcre3 libpcre3-dev
 }
 
 # Install the dumbproxy module
