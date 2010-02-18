@@ -1,6 +1,6 @@
 #!/bin/bash
 
-COUCHDB_EBS=/
+COUCHDB_EBS=/couchdb
 COUCHDB_USER=root
 
 start_lounge () {
@@ -18,7 +18,18 @@ start_lounge () {
 }
 
 stop_lounge () {
-    echo "TBD"
+    for file in $(find ${COUCHDB_EBS}etc/couchdb -type f -iname 'local*.ini'); do
+
+        stop_cmd="sudo su -c'${COUCHDB_EBS}usr/bin/couchdb"
+        stop_cmd="${stop_cmd} -c ${file}"
+        stop_cmd="${stop_cmd} -b -r 5"
+        stop_cmd="${stop_cmd} -p ${pid_file}"
+        stop_cmd="${stop_cmd} -o /dev/null -e /dev/null'"
+        stop_cmd="${stop_cmd} -d"
+        stop_cmd="${stop_cmd} ${COUCHDB_USER}"
+
+        echo $stop_cmd;
+    done
 }
 
 # From CouchDB's init script
