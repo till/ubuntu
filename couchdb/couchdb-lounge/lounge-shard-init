@@ -1,6 +1,6 @@
 #!/bin/bash
 
-COUCHDB_EBS=/
+COUCHDB_EBS=/couchdb/
 COUCHDB_USER=root
 COUCHDB_OPTS=" -r 5  -o /dev/null -e /dev/null"
 
