@@ -100,15 +100,15 @@ do
 
     #create "{$db_dir}" "${log_file}" "${pid_file}"
 
-    init_cmd="sudo su -c'/usr/bin/couchdb"
-    init_cmd="${init_cmd} -c ${COUCHDB_EBS}/etc/couchdb/local-${shard_port}.ini"
-    init_cmd="${init_cmd} -b -r 5"
-    init_cmd="${init_cmd} -p ${pid_file}"
-    init_cmd="${init_cmd} -o /dev/null -e /dev/null'"
-    init_cmd="${init_cmd} ${COUCHDB_USER}"
+    #init_cmd="sudo su -c'${COUCHDB_EBS}usr/bin/couchdb"
+    #init_cmd="${init_cmd} -c ${COUCHDB_EBS}etc/couchdb/local-${shard_port}.ini"
+    #init_cmd="${init_cmd} -b -r 5"
+    #init_cmd="${init_cmd} -p ${pid_file}"
+    #init_cmd="${init_cmd} -o /dev/null -e /dev/null'"
+    #init_cmd="${init_cmd} ${COUCHDB_USER}"
 
-    echo "${init_cmd}"
-    echo ""
+    #echo "${init_cmd}"
+    #echo ""
 
 
     nodelist="${nodelist}localhost ${shard_port}"$'\n'
