@@ -1,26 +1,44 @@
 #!/bin/bash
 
-#  -a FILE     add configuration FILE to chain
-#  -A DIR      add configuration DIR to chain
-#  -n          reset configuration file chain (including system default)
-#  -c          print configuration file chain and exit
-#  -i          use the interactive Erlang shell
-#  -b          spawn as a background process
-#  -p FILE     set the background PID FILE (overrides system default)
-#  -r SECONDS  respawn background process after SECONDS (defaults to no respawn)
-#  -o FILE     redirect background stdout to FILE (defaults to couchdb.stdout)
-#  -e FILE     redirect background stderr to FILE (defaults to couchdb.stderr)
-#  -s          display the status of the background process
-#  -k          kill the background process, will respawn if needed
-#  -d          shutdown the background process
+COUCHDB_EBS=/
+COUCHDB_USER=root
 
+start_lounge () {
+    for file in $(find ${COUCHDB_EBS}etc/couchdb -type f -iname '*.ini'); do
 
-COUCHDB=/path/to/couchdb
-SHARDCONFIG=./ #/path/to/lounge/etc/
+        init_cmd="sudo su -c'${COUCHDB_EBS}usr/bin/couchdb"
+        init_cmd="${init_cmd} -c ${file}"
+        init_cmd="${init_cmd} -b -r 5"
+        init_cmd="${init_cmd} -p ${pid_file}"
+        init_cmd="${init_cmd} -o /dev/null -e /dev/null'"
+        init_cmd="${init_cmd} ${COUCHDB_USER}"
 
+        echo $init_cmd;
+    done
+}
 
+stop_lounge () {
+    echo "TBD"
+}
 
-configs=`ls ${SHARDCONFIG}/local-*`
+# From CouchDB's init script
+parse_script_option_list () {
+    # Parse arguments passed to the script and take appropriate action.
 
-# iterate, build start command
+    case "$1" in
+        start)
+            start_lounge
+            ;;
+        stop)
+            stop_lounge
+            ;;
+        *)
+            cat << EOF >&2
+Usage: $SCRIPT_NAME {start|stop}
+EOF
+            exit
+            ;;
+    esac
+}
 
+parse_script_option_list $@
