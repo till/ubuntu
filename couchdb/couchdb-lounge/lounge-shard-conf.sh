@@ -54,7 +54,7 @@ LOG_EBS=${CHROOT}couchdb_logs
 DB_EBS=${CHROOT}couchdb_db1
 
 # this is where couchdb is installed
-COUCHDB_EBS=${CHROOT}couchdb
+COUCHDB_EBS=${CHROOT}couchdb/couchdb/
 
 # this is the user to run couchdb with
 COUCHDB_USER=root
