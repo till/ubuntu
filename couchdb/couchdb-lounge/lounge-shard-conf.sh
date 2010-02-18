@@ -101,18 +101,9 @@ do
 
     save_file "local-${shard_port}.ini" "$local_config"
 
-    #create "{$db_dir}" "${log_file}" "${pid_file}"
-
-    #init_cmd="sudo su -c'${COUCHDB_EBS}usr/bin/couchdb"
-    #init_cmd="${init_cmd} -c ${COUCHDB_EBS}etc/couchdb/local-${shard_port}.ini"
-    #init_cmd="${init_cmd} -b -r 5"
-    #init_cmd="${init_cmd} -p ${pid_file}"
-    #init_cmd="${init_cmd} -o /dev/null -e /dev/null'"
-    #init_cmd="${init_cmd} ${COUCHDB_USER}"
-
-    #echo "${init_cmd}"
-    #echo ""
-
+    if [ $INSTALL_YES_NO -eq "yes" ]; then
+        cp ${WORKING}/local-*.ini ${COUCHDB_EBS}/etc/couchdb/
+    fi
 
     nodelist="${nodelist}localhost ${shard_port}"$'\n'
 
