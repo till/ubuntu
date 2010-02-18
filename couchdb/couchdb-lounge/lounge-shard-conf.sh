@@ -20,7 +20,8 @@
 #                                                                                  #
 # Use the "nodelist" file with update_shard_map.py.                                #
 #                                                                                  #
-# Move the local.ini files to your $COUCHDB_EBS/etc/couchdb/ directory.            #
+# If INSTALL_YES_NO=yes, the local.ini files will be copied                        #
+# to your $COUCHDB_EBS/etc/couchdb/ directory.                                     #
 #                                                                                  #
 # All files will be in ./work.                                                     #
 #                                                                                  #
