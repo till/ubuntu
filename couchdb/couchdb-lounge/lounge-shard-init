@@ -4,7 +4,7 @@ COUCHDB_EBS=/couchdb
 COUCHDB_USER=root
 
 start_lounge () {
-    for file in $(find ${COUCHDB_EBS}etc/couchdb -type f -iname 'local*.ini'); do
+    for file in $(find ${COUCHDB_EBS}etc/couchdb -type f -iname 'local-*.ini'); do
 
         init_cmd="sudo su -c'${COUCHDB_EBS}usr/bin/couchdb"
         init_cmd="${init_cmd} -c ${file}"
@@ -18,7 +18,7 @@ start_lounge () {
 }
 
 stop_lounge () {
-    for file in $(find ${COUCHDB_EBS}etc/couchdb -type f -iname 'local*.ini'); do
+    for file in $(find ${COUCHDB_EBS}etc/couchdb -type f -iname 'local-*.ini'); do
 
         stop_cmd="sudo su -c'${COUCHDB_EBS}usr/bin/couchdb"
         stop_cmd="${stop_cmd} -c ${file}"
