@@ -63,7 +63,7 @@ COUCHDB_USER=root
 NUMSERVERS=$1
 
 function save_file {
-    `echo "$2" >> $WORKING/$1`
+    `echo "$2" > $WORKING/$1`
 }
 
 function create {
