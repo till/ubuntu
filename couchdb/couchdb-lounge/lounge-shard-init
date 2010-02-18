@@ -1,10 +1,25 @@
 #!/bin/bash
 
-COUCHDB_EBS=/couchdb
+COUCHDB_EBS=/
 COUCHDB_USER=root
+
+build_pid () {
+    local conf=$1
+
+    local port=`basename $conf`
+
+    port=${port/local-/}
+    port=${port/.ini/}
+
+    local pid="/var/run/couch-${port}.pid"    
+
+    echo $pid
+}
 
 start_lounge () {
     for file in $(find ${COUCHDB_EBS}etc/couchdb -type f -iname 'local-*.ini'); do
+
+        pid_file=$(build_pid $file)
 
         init_cmd="sudo su -c'${COUCHDB_EBS}usr/bin/couchdb"
         init_cmd="${init_cmd} -c ${file}"
