@@ -1,39 +1,3 @@
-01:26 < mdas> anyone out there using couchdb-lounge?
-01:26 < tilgovi> mdas: yes :)
-01:26 < tilgovi> what's going on?
-01:26 < tilgovi> err..what's on your mind?
-01:28 -!- jchris [n=Adium@couchdb/developer/jchris] has quit [Client Quit]
-01:29 < mdas> tilgovi: wow, meebo man himself:P  thanks for responding
-01:30 < mdas> I'm basically trying to set up two couchdb instances, with replicated data, and i'd like to use lounge to distribute the load between the two
-01:30 < mdas> buuuut I'm not sure where to start or even how to use lounge.  I just got it, but I'm not finding much in the documentation.  Any pointers would be appreciated!
-01:32 < tilgovi> getting it built and installed is the first step
-01:32 < tilgovi> there is some documentation on that, but it's not amazing
-01:32 < mdas> yup that's been done
-01:32 < tilgovi> till_ just did this as well
-01:32 -!- alisdair [n=alisdair@d154-5-49-5.bchsia.telus.net] has joined #couchdb
-01:32 < tilgovi> ok
-01:32 < tilgovi> make sure you're not being bitten by http://github.com/tilgovi/couchdb-lounge/issues#issue/13
-01:33 -!- BrianTheCoder [n=williams@adsl-209-30-190-193.dsl.rcsntx.swbell.net] has quit []
-01:33 < tilgovi> and then try to start the proxies
-01:34 < tilgovi> start the services nginx-lounge and smartproxy
-01:34 < tilgovi> and make sure couch is running
-01:34 < tilgovi> configuration is in /etc/lounge
-01:35 < tilgovi> you'll want to check out shards.conf, which defaults to splitting the database into two shards, both stored on your local couch
-01:35 < tilgovi> and you'll probably need to patch your couchdb with the provided patch if you haven't yet
-01:35 < tilgovi> if you can help me out with any more specifics I can answer better
-01:35 < mdas> okay, cool, i'll check the conf file bug, and i've patched up my couchdb install
-01:35 < mdas> but I'm not sure how to actually start nginx-lounge/smartproxy/dumbproxy
-01:36 < tilgovi> ahh. what distro?
-01:36 < tilgovi> btw, nginx-lounge = dumbproxy
-01:36 < mdas> oh thanks
-01:36 < mdas> i'm running on os x
-01:36 < tilgovi> oooh. I don't think anyone has done this on os x yet :)
-01:37 < mdas> hahah, there's a first for everything
-01:37 < mdas> :P
-01:37 < mdas> how would it be done in *nix?
-01:37 < tilgovi> /etc/init.d/nginx-lounge start
-01:38 < tilgovi> I'm not sure how to package and deal with daemons on os x
-01:38 < tilgovi> but you can just run nginx-lounge to start dumbproxy
 01:40 < tilgovi> and you can run `twistd -n -y /etc/lounge/smartproxy.tac` to run smartproxy
 01:40 < mdas> oh okay, haha i'm already running into issues trying to start nginx since its  looking for files store in *nix directories like /lib/ ... perhaps i'll try to run 
               this on a linux box, or hack it to work on mac haha
@@ -57,6 +21,3 @@
 01:47 < tilgovi> that should be enough for you to play for a while
 
 --
-
-18:31 <tilgovi> be sure you set permissions for the couchdb user to write to /var/log/lounge/replicator
-18:31 <tilgovi> or the replication_notifier will crash
