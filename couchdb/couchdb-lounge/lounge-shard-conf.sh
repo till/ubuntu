@@ -48,7 +48,7 @@ CHROOT=/
 WORKING="`pwd`/work"
 
 # this is the ebs volume we log to
-LOG_EBS=${CHROOT}logs
+LOG_EBS=${CHROOT}couchdb_logs
 
 # this is the ebs the databases will be on
 DB_EBS=${CHROOT}couchdb_ebs
@@ -58,6 +58,9 @@ COUCHDB_EBS=${CHROOT}couchdb
 
 # this is the user to run couchdb with
 COUCHDB_USER=root
+
+# yes or no
+INSTALL_YES_NO=no
 
 ## Don't edit below.
 
@@ -84,6 +87,10 @@ nodelist=""
 
 mkdir -p $WORKING;
 
+if [ $INSTALL_YES_NO = "yes" ]; then
+    mkdir -p ${LOG_EBS}
+fi
+
 for (( i=1; i<=$NUMSERVERS; i++ ))
 do
 
@@ -96,13 +103,14 @@ do
     local_config=${local_config//DBEBS/$DB_EBS}
 
     pid_file="/var/run/couch-${shard_port}.pid"
-    db_dir="${DBS_EBS}/${shard_port}"
+    db_dir="${DB_EBS}/${shard_port}"
     log_file="${LOG_EBS}/couch-${shard_port}.log"
 
     save_file "local-${shard_port}.ini" "$local_config"
 
-    if [ $INSTALL_YES_NO -eq "yes" ]; then
+    if [ $INSTALL_YES_NO = "yes" ]; then
         cp ${WORKING}/local-*.ini ${COUCHDB_EBS}/etc/couchdb/
+        mkdir -p ${db_dir}
     fi
 
     nodelist="${nodelist}localhost ${shard_port}"$'\n'
@@ -118,4 +126,16 @@ echo "Created in ${WORKING}:"
 echo " * nodelist (for update_shard_map.py)"
 echo " * ${NUMSERVERS} local-*.ini's"
 echo ""
+
+if [ $INSTALL_YES_NO = "yes" ]; then
+    echo ""
+    echo "Created the following directories:"
+    echo " $db_dir"
+    echo " $DB_EBS/*"
+    echo " $LOG_EBS/"
+    echo ""
+    echo "Copied local-*.ini's to ${COUCHDB_EBS}/etc/couchdb/"
+    echo ""
+fi
+
 exit 0;
