@@ -42,6 +42,8 @@ PORT=5984
 
 CHROOT=/
 
+WORKING="`pwd`/work"
+
 # this is the ebs volume we log to
 LOG_EBS=${CHROOT}logs
 
@@ -59,7 +61,7 @@ COUCHDB_USER=root
 NUMSERVERS=$1
 
 function save_file {
-    `echo "$2" >> ./$1`
+    `echo "$2" >> $WORKING/$1`
 }
 
 function create {
@@ -75,9 +77,9 @@ fi
 
 conf=`cat ./local.ini-tpl`
 
-#echo "$conf";
-
 nodelist=""
+
+mkdir -p $WORKING;
 
 for (( i=1; i<=$NUMSERVERS; i++ ))
 do
@@ -118,7 +120,7 @@ save_file "nodelist" "${nodelist}"
 echo "Done!"
 echo ""
 
-echo "Created in `pwd`:"
+echo "Created in ${WORKING}:"
 echo " * nodelist (for update_shard_map.py)"
 echo " * ${NUMSERVERS} local-*.ini's"
 echo ""
