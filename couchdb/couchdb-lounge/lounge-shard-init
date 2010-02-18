@@ -1,6 +1,6 @@
 #!/bin/bash
 
-COUCHDB_EBS=/couchdb/
+COUCHDB_EBS=/couchdb/couchdb/
 COUCHDB_USER=root
 COUCHDB_OPTS=" -r 5  -o /dev/null -e /dev/null"
 
@@ -22,7 +22,7 @@ start_lounge () {
 
         pid_file=$(build_pid $file)
 
-        init_cmd="sudo su -c'${COUCHDB_EBS}usr/bin/couchdb"
+        init_cmd="sudo su -c'${COUCHDB_EBS}bin/couchdb"
         init_cmd="${init_cmd} -a ${file}"
         init_cmd="${init_cmd} -b"
         init_cmd="${init_cmd} -p ${pid_file}"
@@ -36,7 +36,7 @@ start_lounge () {
 stop_lounge () {
     for file in $(find ${COUCHDB_EBS}etc/couchdb -type f -iname 'local-*.ini'); do
 
-        stop_cmd="sudo su -c'${COUCHDB_EBS}usr/bin/couchdb"
+        stop_cmd="sudo su -c'${COUCHDB_EBS}bin/couchdb"
         stop_cmd="${stop_cmd} -a ${file}"
         stop_cmd="${stop_cmd} -b"
         stop_cmd="${stop_cmd} -p ${pid_file}"
