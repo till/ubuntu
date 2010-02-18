@@ -4,7 +4,7 @@
  * a work in progress
  * goal? - have deps, install them - be happy!
 
-## loung-fest.sh
+## lounge-fest.sh
 
  * installs all dependencies
  * installs CouchDB
@@ -32,3 +32,17 @@
 
  * a script to start the shards
  * TODO: work in progress
+
+
+# How does it work?
+
+ * run lounge-fest.sh
+ * run lounge-shard-cof.sh
+ * run update_shards_map.py
+ * copy lounge-shard-init to /etc/init.d/
+
+# Todo
+
+ * log rotation for all shards/for couchdb_logs dir
+ * figure out why nginx-lounge is not configured
+ * figure out how to prefix the lounge install
