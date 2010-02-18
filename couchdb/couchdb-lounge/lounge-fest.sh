@@ -26,7 +26,7 @@ export APACHE_MIRROR=http://apache.easy-webs.de/couchdb
 export COUCHDB_VERSION=0.10.0
 export COUCHDB_USER=root
 export EBS_VOL=/couchdb
-export INSTALL_YES_NO=no
+export INSTALL_YES_NO=yes
 
 # include shared functions
 source ./../functions
@@ -79,7 +79,7 @@ function lounge_install_dumbproxy {
     lounge_install_dumbproxy_dep
 
     cd ${EBS_VOL}/couchdb-lounge/dumbproxy
-    ./configure && make 
+    ./configure && make
     checkinstall -y -D  --install=${INSTALL_YES_NO} \
     --showinstall=no \
     --pkgname=couchdb-lounge-dumbproxy --pkgversion=${COUCHDB_VERSION} \
@@ -137,3 +137,9 @@ lounge_install_dumbproxy
 lounge_install_pythonlounge
 lounge_install_smartproxy
 #couchdb_tools
+
+
+echo ""
+echo "Create the following directory: /var/log/lounge/replicator."
+echo "You'll need to chown it, in case your CouchDB doesn't run as root."
+echo ""
