@@ -29,7 +29,7 @@ start_lounge () {
         init_cmd="${init_cmd} ${COUCHDB_OPTS}"
         init_cmd="${init_cmd} ${COUCHDB_USER}"
 
-        echo $init_cmd;
+        $init_cmd
     done
 }
 
@@ -44,7 +44,7 @@ stop_lounge () {
         stop_cmd="${stop_cmd} -d"
         stop_cmd="${stop_cmd} ${COUCHDB_USER}"
 
-        echo $stop_cmd;
+        $stop_cmd
     done
 }
 
