@@ -22,6 +22,8 @@
 #                                                                                  #
 # Move the local.ini files to your $COUCHDB_EBS/etc/couchdb/ directory.            #
 #                                                                                  #
+# All files will be in ./work.                                                     #
+#                                                                                  #
 ####################################################################################
 #                                                                                  #
 # Author:  Till Klampaeckel                                                        #
