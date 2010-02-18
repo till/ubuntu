@@ -41,7 +41,7 @@ user2 = password";
 HTTPAUTHSECRET="this should be adjusted"
 
 # We'll start at this port
-PORT=5984
+PORT=5985
 
 CHROOT=/
 
@@ -51,7 +51,7 @@ WORKING="`pwd`/work"
 LOG_EBS=${CHROOT}couchdb_logs
 
 # this is the ebs the databases will be on
-DB_EBS=${CHROOT}couchdb_ebs
+DB_EBS=${CHROOT}couchdb_db1
 
 # this is where couchdb is installed
 COUCHDB_EBS=${CHROOT}couchdb
@@ -60,7 +60,7 @@ COUCHDB_EBS=${CHROOT}couchdb
 COUCHDB_USER=root
 
 # yes or no
-INSTALL_YES_NO=no
+INSTALL_YES_NO=yes
 
 ## Don't edit below.
 
