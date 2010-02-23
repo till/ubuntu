@@ -40,8 +40,9 @@ user2 = password";
 
 HTTPAUTHSECRET="this should be adjusted"
 
-# We'll start at this port
-PORT=5985
+# We'll start at this port. If you adjust this port, update upstream passthrough in
+# nginx-lounge
+PORT=5984
 
 CHROOT=/
 
