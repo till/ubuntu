@@ -46,3 +46,9 @@
  * log rotation for all shards/for couchdb_logs dir
  * figure out why nginx-lounge is not configured
  * figure out how to prefix the lounge install
+ * provide a patch of /etc/init.d/nginx-lounge
+
+# Possibly issues
+
+ * update_shards.py seems to have a bug
+ * nginx-lounge will refuse to start when /etc/lounge/shards.conf is incorrect
