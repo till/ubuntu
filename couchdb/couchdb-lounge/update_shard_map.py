@@ -55,6 +55,10 @@ def main(nodefile, num_shards, redundancy):
     nodes = []
     for node in file(nodefile).readlines():
         item = node.split()
+
+        if len(node.strip()) == 0:
+            continue
+
         if len(item) == 1:
             item.append(5984)
 
