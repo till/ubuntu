@@ -39,9 +39,9 @@
 # How does it work?
 
  * clone the entire `ubuntu` repository
- * run `lounge-fest.sh`
- * run `lounge-shard-conf.sh`
- * run `update_shards_map.py work/nodelist NUM >> /etc/lounge/shards.conf`
+ * run `./lounge-fest.sh`
+ * run `./lounge-shard-conf.sh NUMBER_OF_SHARDS`
+ * run `./update_shards_map.py work/nodelist NUMBER_OF_SHARDS LEVEL_OF_REDUNDANCY > /etc/lounge/shards.conf`
  * copy `lounge-shard-init` to `/etc/init.d/`
 
  * start:
