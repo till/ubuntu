@@ -3,7 +3,7 @@
 3) Investigate why nginx-lounge can't read nginx.conf
 4) Add replicator install to script
 
-
+apt-get install python-pycurl
 cd /couchdb/couchdb-lounge
 sudo install -m 755 replicator/replication_notifier.py /var/lib/lounge/
 [update_notification]
