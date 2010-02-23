@@ -1,11 +1,4 @@
 2) Fix start script (nginx-lounge).
-3) Add replicator install to script
-
-apt-get install python-pycurl
-cd /couchdb/couchdb-lounge
-sudo install -m 755 replicator/replication_notifier.py /var/lib/lounge/
-[update_notification]
-replicator = /usr/bin/python /var/lib/lounge/replication_notifier.py >> COUCHDB/couchdb/etc/default.ini
 
 01:46 < tilgovi> if you only access the lounge through dumbproxy on one of your two nodes technically you'll only need /etc/lounge/shards.conf changed on that machine
 01:46 < tilgovi> but you can run dumbproxy on both if you copy shards.conf to both
