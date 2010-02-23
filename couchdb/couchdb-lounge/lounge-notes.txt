@@ -1,4 +1,3 @@
-1) Investigate why twistd doesn't write a pid file.
 2) Fix start script (nginx-lounge).
 3) Add replicator install to script
 
@@ -8,12 +7,6 @@ sudo install -m 755 replicator/replication_notifier.py /var/lib/lounge/
 [update_notification]
 replicator = /usr/bin/python /var/lib/lounge/replication_notifier.py >> COUCHDB/couchdb/etc/default.ini
 
-4) Fix: update_shard_conf.py cannot deal with empty lines
-
-01:43 < mdas> once i fix the config file in /etc/lounge and get smart and dumb proxy running, it *should* work right? or am i missing some steps?
-01:45 < tilgovi> should work!
-01:45 < tilgovi> :)
-01:45 < mdas> excellent, thanks!
 01:46 < tilgovi> if you only access the lounge through dumbproxy on one of your two nodes technically you'll only need /etc/lounge/shards.conf changed on that machine
 01:46 < tilgovi> but you can run dumbproxy on both if you copy shards.conf to both
 01:46 < Monty> bending notes, maybe more general principle that Dickinson wouldn't be okay, what number
