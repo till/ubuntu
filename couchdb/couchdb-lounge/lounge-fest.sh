@@ -74,6 +74,8 @@ function lounge_install_dumbproxy_dep {
 }
 
 # Install the dumbproxy module
+# Dumbproxy includes an nginx and the module.
+# /etc/init.d/nginx-lounge
 function lounge_install_dumbproxy {
 
     lounge_install_dumbproxy_dep
@@ -85,6 +87,11 @@ function lounge_install_dumbproxy {
     --pkgname=couchdb-lounge-dumbproxy --pkgversion=${COUCHDB_VERSION} \
     --maintainer=till@php.net --pakdir=$EBS_VOL --pkglicense=Meebo \
     --requires='json-c'
+
+    if [ $INSTALL_YES_NO = "yes" ]; then
+        rm /etc/lounge/nginx/nginx.conf
+        cp /etc/lounge/nginx/nginx.conf.dist /etc/lounge/nginx/nginx.conf
+    fi
 }
 
 function lounge_install_pythonlounge {
@@ -107,6 +114,7 @@ function lounge_install_smartproxy {
     --requires="${deps}"
 }
 
+# Installs CouchDB for all the shards
 function couchdb_install {
     echo "Building CouchDB..."
 
@@ -118,13 +126,6 @@ function couchdb_install {
     --pkgname=$PKG_NAME --pkgversion=$COUCHDB_VERSION \
     --maintainer=till@php.net --pakdir=$EBS_VOL --pkglicense=Apache \
     --requires="${COUCHDB_DEPS}"
-
-    echo "Package created in: ${EBS_VOL}"
-
-    #replace $COUCHDB_USER in ${EBS_VOL}/couchdb/etc/defaults/couchdb
-    #echo "bind_address = 0.0.0.0" >> ${EBS_VOL}/couchdb/etc/couchdb/local.ini
-    #echo "port = 80" >> ${EBS_VOL}/couchdb/etc/couchdb/local.ini
-
 }
 
 basics
