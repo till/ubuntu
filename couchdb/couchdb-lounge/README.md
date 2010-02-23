@@ -4,6 +4,7 @@
  * a work in progress
  * goal? - have deps, install them - be happy!
 
+
 ## lounge-fest.sh
 
  * installs all dependencies
@@ -11,9 +12,11 @@
  * installs CouchDB-lounge components
  * TODO: configuration/setup of all components
 
+
 ## local.ini-tpl
 
  * a template to create configs for the shards from
+
 
 ## lounge-shard-conf.sh
 
@@ -31,24 +34,31 @@
 ## lounge-shard-init
 
  * a script to start the shards
- * TODO: work in progress
 
 
 # How does it work?
 
- * run lounge-fest.sh
- * run lounge-shard-cof.sh
- * run update_shards_map.py
- * copy lounge-shard-init to /etc/init.d/
+ * clone the entire `ubuntu` repository
+ * run `lounge-fest.sh`
+ * run `lounge-shard-conf.sh`
+ * run `update_shards_map.py work/nodelist NUM >> /etc/lounge/shards.conf`
+ * copy `lounge-shard-init` to `/etc/init.d/`
+
+ * start:
+   * `/etc/init.d/lounge-shard-init`
+   * `/etc/init.d/smartproxyd start`
+   * `/etc/init.d/nginx-lounge start`
+
 
 # Todo
 
  * log rotation for all shards/for couchdb_logs dir
- * figure out why nginx-lounge is not configured
  * figure out how to prefix the lounge install
  * provide a patch of /etc/init.d/nginx-lounge
+ * provide a config script so ppl don't need to edit bash scripts
+
 
 # Possibly issues
 
- * update_shards.py seems to have a bug
- * nginx-lounge will refuse to start when /etc/lounge/shards.conf is incorrect
+ * `update_shards_map.py` seems to have a bug (if it generated an empty array in `/etc/lounge/shards.conf`, remove it)
+ * nginx-lounge will refuse to start when `/etc/lounge/shards.conf` is incorrect
