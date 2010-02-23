@@ -57,6 +57,10 @@ def main(nodefile, num_shards, redundancy):
         item = node.split()
         if len(item) == 1:
             item.append(5984)
+
+        # cast to int
+        item[1] = int(item[1])
+
         nodes.append(item)
 
     nodes.sort()
