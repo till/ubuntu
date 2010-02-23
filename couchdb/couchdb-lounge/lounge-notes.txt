@@ -1,13 +1,14 @@
 1) Investigate why twistd doesn't write a pid file.
-2) Fix start script.
-3) Investigate why nginx-lounge can't read nginx.conf
-4) Add replicator install to script
+2) Fix start script (nginx-lounge).
+3) Add replicator install to script
 
 apt-get install python-pycurl
 cd /couchdb/couchdb-lounge
 sudo install -m 755 replicator/replication_notifier.py /var/lib/lounge/
 [update_notification]
 replicator = /usr/bin/python /var/lib/lounge/replication_notifier.py >> COUCHDB/couchdb/etc/default.ini
+
+4) Fix: update_shard_conf.py cannot deal with empty lines
 
 01:43 < mdas> once i fix the config file in /etc/lounge and get smart and dumb proxy running, it *should* work right? or am i missing some steps?
 01:45 < tilgovi> should work!
