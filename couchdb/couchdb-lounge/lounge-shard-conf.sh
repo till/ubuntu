@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 ####################################################################################
 #                                                                                  #
 # This script creates CouchDB config files and start scripts.                      #

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 ####################################################################################
 #                                                                                  #
 # This script setups CouchDB lounge and the tools on an Amazon AWS EC2 instance.   #

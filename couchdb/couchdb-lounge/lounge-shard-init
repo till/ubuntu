@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 COUCHDB_EBS=/couchdb/couchdb/
 COUCHDB_USER=root # We only support root right now.
