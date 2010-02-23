@@ -1,15 +1,8 @@
-01:40 < tilgovi> and you can run `twistd -n -y /etc/lounge/smartproxy.tac` to run smartproxy
-01:40 < mdas> oh okay, haha i'm already running into issues trying to start nginx since its  looking for files store in *nix directories like /lib/ ... perhaps i'll try to run 
-              this on a linux box, or hack it to work on mac haha
-01:40 < tilgovi> if you just want to get started and you have access to a *nix box, I would do that
-01:41 < tilgovi> if you want to tinker I'd appreciate hearing about any progress you make on os x
-01:41 < mdas> good call, thanks!
-01:41 < mdas> for sure, it could be a pet project, this whole company is on macs haha
-01:41 < tilgovi> I know srlindsay, one of the other devs, got it running on his mac
-01:41 < tilgovi> so it is possible
-01:41 < mdas> oh neat sure
-01:42 < mdas> thanks for your help!
-01:42 < tilgovi> of course! good luck
+1) Investigate why twistd doesn't write a pid file.
+2) Fix start script.
+3) Investigate why nginx-lounge can't read nginx.conf
+
+
 01:43 < mdas> once i fix the config file in /etc/lounge and get smart and dumb proxy running, it *should* work right? or am i missing some steps?
 01:45 < tilgovi> should work!
 01:45 < tilgovi> :)
@@ -19,5 +12,3 @@
 01:46 < Monty> bending notes, maybe more general principle that Dickinson wouldn't be okay, what number
 01:47 < tilgovi> and you can load balance between multiple smartproxy instances so that both machines are doing re-reductions by listing them both in /etc/lounge/nginx/nginx.conf
 01:47 < tilgovi> that should be enough for you to play for a while
-
---
