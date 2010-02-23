@@ -53,10 +53,21 @@
 # Todo
 
  * log rotation for all shards/for couchdb_logs dir
+ * seperate view dirs for all shards
  * figure out how to prefix the lounge install
  * provide a patch of /etc/init.d/nginx-lounge
  * provide a config script so ppl don't need to edit bash scripts
+ * add replication_notifier.py to install/setup scripts
+   * steps:
 
+    apt-get install python-pycurl
+    cd /couchdb/couchdb-lounge
+    sudo install -m 755 replicator/replication_notifier.py /var/lib/lounge/
+
+   * paste the following into `couchdb/etc/default.ini`:
+
+    [update_notification]
+    replicator = /usr/bin/python /var/lib/lounge/replication_notifier.py
 
 # Possibly issues
 
