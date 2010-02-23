@@ -1,7 +1,13 @@
 1) Investigate why twistd doesn't write a pid file.
 2) Fix start script.
 3) Investigate why nginx-lounge can't read nginx.conf
+4) Add replicator install to script
 
+
+cd /couchdb/couchdb-lounge
+sudo install -m 755 replicator/replication_notifier.py /var/lib/lounge/
+[update_notification]
+replicator = /usr/bin/python /var/lib/lounge/replication_notifier.py >> COUCHDB/couchdb/etc/default.ini
 
 01:43 < mdas> once i fix the config file in /etc/lounge and get smart and dumb proxy running, it *should* work right? or am i missing some steps?
 01:45 < tilgovi> should work!
@@ -12,3 +18,5 @@
 01:46 < Monty> bending notes, maybe more general principle that Dickinson wouldn't be okay, what number
 01:47 < tilgovi> and you can load balance between multiple smartproxy instances so that both machines are doing re-reductions by listing them both in /etc/lounge/nginx/nginx.conf
 01:47 < tilgovi> that should be enough for you to play for a while
+
+
