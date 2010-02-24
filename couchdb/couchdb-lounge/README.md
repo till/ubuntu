@@ -35,6 +35,10 @@
 
  * a script to start the shards
 
+## update_shards_map.py
+
+ * a script to generate `/etc/lounge/shards.conf`
+ * after you ran `lounge-shard-conf.sh`, use `work/nodelist` with this
 
 # How does it work?
 
@@ -71,7 +75,6 @@
 
 # Possibly issues
 
- * `update_shards_map.py` seems to have a bug (if it generated an empty array in `/etc/lounge/shards.conf`, remove it)
  * nginx-lounge will refuse to start when `/etc/lounge/shards.conf` is incorrect
 
 # Credits
