@@ -3,8 +3,8 @@
 #                                                                                  #
 # This script creates CouchDB config files and start scripts.                      #
 #                                                                                  #
-# This has been tested on Ubuntu 9.04, and I realize it could be improved. Please  #
-# contribute. :-)                                                                  #
+# This has been tested on Ubuntu 9.04 and 9.10. I realize it could be improved.    #
+# Please contribute. :-)                                                           #
 #                                                                                  #
 # Notes:                                                                           #
 #                                                                                  #
