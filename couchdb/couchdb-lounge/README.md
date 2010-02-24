@@ -34,6 +34,8 @@
 ## lounge-shard-init
 
  * a script to start the shards
+ * copy to /etc/init.d/
+ * then try `/etc/init.d/lounge-shard-init start|stop|restart`
 
 ## update_shards_map.py
 
