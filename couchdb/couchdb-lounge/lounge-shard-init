@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
+# Some inspiration taken from the regular start script of CouchDB, the rest is custom
+# bash foo.
+#
+# Note - this will start all CouchDB instances as root, if you don't like it, please
+# adjust the script and send me a pull request.
+#
+# Author:  Till Klampaeckel <till@php.net>
+# Version: 0.1.0
+
 COUCHDB_EBS=/couchdb/couchdb/
 COUCHDB_USER=root # We only support root right now.
 COUCHDB_OPTS=" -r 5  -o /dev/null -e /dev/null"
@@ -57,9 +66,13 @@ parse_script_option_list () {
         stop)
             stop_lounge
             ;;
+        restart)
+            stop_lounge
+            start_lounge
+            ;;
         *)
             cat << EOF >&2
-Usage: $SCRIPT_NAME {start|stop}
+Usage: $SCRIPT_NAME {start|stop|restart}
 EOF
             exit
             ;;
