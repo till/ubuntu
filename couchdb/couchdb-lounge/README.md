@@ -73,3 +73,13 @@
 
  * `update_shards_map.py` seems to have a bug (if it generated an empty array in `/etc/lounge/shards.conf`, remove it)
  * nginx-lounge will refuse to start when `/etc/lounge/shards.conf` is incorrect
+
+# Credits
+
+ * Thanks to [Lena Herrmann][0] for testing. ;)
+ * Thanks to [Randall Leeds][1] (of Meebo) for helping/debugging.
+ * Thank you, [EasyBib][2], for allowing me to work on cool stuff.
+
+[0]: http://lenaherrmann.net/
+[1]: http://twitter.com/tilgovi
+[2]: http://www.easybib.com/
