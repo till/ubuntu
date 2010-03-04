@@ -45,6 +45,29 @@
  */
 
 
+$username = '';
+$password = '';
+$database = '';
+$server   = 'localhost';
+
 foreach (glob('/couchdb/couchdb/etc/couchdb/local-*') as $file) {
-    echo basename($file) . "\n";
+    $port = basename($file);
+    $port = str_replace('local-', '', $port);
+    $port = str_replace('.ini', '', $port);
+
+    $compact = "http://{$server}:{$port}/{$database}/_compact";
+
+    $req = new HTTP_Request2;
+    $req->setUrl($compact)
+        ->setMethod(HTTP_Request2::METHOD_POST);
+
+    if (!empty($username)) {
+        $req->setAuth($username, $password);
+    }
+
+    $resp = $req->send();
+
+    $status = json_decode($resp->getBody());
+
+    var_dump($status);    
 }
