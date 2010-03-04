@@ -42,6 +42,8 @@
  * @license  http://www.opensource.org/licenses/bsd-license.php The BSD License
  * @version  GIT: $Id$
  * @link     http://till.klampaeckel.de/blog/
+ * @todo     Make this a PEAR package.
+ * @todo     Add Console_CommandLine to allow easy injection of the values.
  */
 
 /**
