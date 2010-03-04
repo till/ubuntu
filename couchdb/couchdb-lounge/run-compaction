@@ -47,27 +47,53 @@
 
 $username = '';
 $password = '';
-$database = '';
 $server   = 'localhost';
+$db_dir   = '/couchdb_db1';
 
 foreach (glob('/couchdb/couchdb/etc/couchdb/local-*') as $file) {
     $port = basename($file);
     $port = str_replace('local-', '', $port);
     $port = str_replace('.ini', '', $port);
 
-    $compact = "http://{$server}:{$port}/{$database}/_compact";
+    $dbs = findDatabase($db_dir, $port);
 
-    $req = new HTTP_Request2;
-    $req->setUrl($compact)
-        ->setMethod(HTTP_Request2::METHOD_POST);
+    foreach ($dbs as $database) {
 
-    if (!empty($username)) {
-        $req->setAuth($username, $password);
+        $compact = "http://{$server}:{$port}/{$database}/_compact";
+
+        $req = new HTTP_Request2;
+        $req->setUrl($compact)
+            ->setMethod(HTTP_Request2::METHOD_POST);
+
+        if (!empty($username)) {
+            $req->setAuth($username, $password);
+        }
+
+        $resp = $req->send();
+
+        $status = json_decode($resp->getBody());
+        var_dump($status);
+
+        unset($req);
     }
+}
 
-    $resp = $req->send();
+/**
+ * Find the database names for the given shard.
+ *
+ * @param $db_dir
+ * @param $port
+ *
+ * @return array
+ */
+function findDatabases($db_dir, $port)
+{
+    $dbs = array();
+    foreach (glob($db_dir . '/' . $port . '/*.couch') as $db) {
+        $db = basename($db);
+        $db = str_replace('.couch', '', $db);
 
-    $status = json_decode($resp->getBody());
-
-    var_dump($status);    
+        $dbs[] = $db;
+    }
+    return $dbs;
 }
