@@ -77,11 +77,15 @@ foreach (glob('/couchdb/couchdb/etc/couchdb/local-*') as $file) {
         $resp = $req->send();
 
         $status = json_decode($resp->getBody());
-        var_dump($status);
+        if ($status->ok !== true) {
+            echo "Compaction failed on: {$req->getUrl()}.\n";
+        }
 
         unset($req);
     }
 }
+echo "Done!\n";
+exit(0);
 
 /**
  * Find the database names for the given shard.
