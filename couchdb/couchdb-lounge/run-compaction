@@ -54,8 +54,9 @@ $username = '';
 $password = '';
 $server   = 'localhost';
 $db_dir   = '/couchdb_db1';
+$etc_dir  = '/couchdb/couchdb/etc/couchdb';
 
-foreach (glob('/couchdb/couchdb/etc/couchdb/local-*') as $file) {
+foreach (glob($etc_dir . '/local-*') as $file) {
     $port = basename($file);
     $port = str_replace('local-', '', $port);
     $port = str_replace('.ini', '', $port);
