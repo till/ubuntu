@@ -55,7 +55,7 @@ foreach (glob('/couchdb/couchdb/etc/couchdb/local-*') as $file) {
     $port = str_replace('local-', '', $port);
     $port = str_replace('.ini', '', $port);
 
-    $dbs = findDatabase($db_dir, $port);
+    $dbs = findDatabases($db_dir, $port);
 
     foreach ($dbs as $database) {
 
