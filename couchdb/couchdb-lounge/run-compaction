@@ -1,4 +1,5 @@
 #!/usr/bin/php 
+<?php
 /**
  * +-----------------------------------------------------------------------+
  * | Copyright (c) 2010, Till Klampaeckel                                  |
@@ -45,5 +46,5 @@
 
 
 foreach (glob('/couchdb/couchdb/etc/couchdb/local-*') as $file) {
-
+    echo basename($file) . "\n";
 }
