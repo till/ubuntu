@@ -44,6 +44,11 @@
  * @link     http://till.klampaeckel.de/blog/
  */
 
+/**
+ * HTTP_Request2
+ * @ignore
+ */
+require_once 'HTTP/Request2.php';
 
 $username = '';
 $password = '';
